@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <meta name="google-signin-client_id" content="326990696802-lf1g5bvb8d9u1stkgdsqjcmpjjlnr87b.apps.googleusercontent.com">
+   <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>   
+   <script src="https://apis.google.com/js/platform.js" async defer></script>
+   
+   <title>{{siteTitle}}</title>
+
+</head>
+<body>
+{{!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <a class="navbar-brand" href="/">
+    <img src="/images/pelota.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    {{siteTitle}}
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/iniciar-sesion">Sign-In </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/registro">Register</a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link" href="/cerrar-sesion">Log Out</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Lorem Ipsum</a>
+          <a class="dropdown-item" href="#">Lorem Ipsum</a>
+          <a class="dropdown-item" href="#">Lorem Ipsum</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav> --}}
+
+    <div class="sidenav">
+         <a href="/">
+         <img src="/images/pelota.png" style="vertical-align: middle!important;" width="30" height="30" class="d-inline-block align-top" alt="">
+         {{siteTitle}}
+        <a href="/iniciar-sesion">Iniciar Sesion</a>
+        <a href=""> <img src="" width="20px" alt="">Mi Perfil</a>
+        <a href="/registro">Registro</a>
+        <a href="/cerrar-sesion">Cerrar Sesion</a>
+        <a href="/spain"> <img src="/images/esp.svg" width="16px" alt=""> Liga Española</a>
+        <a href="/argentina"> <img src="/images/arg.svg" width="16px" alt=""> Liga Argentina</a>
+        {{!-- <a href="/liga-argentina"> <img src="/images/arg.svg" width="16px" alt=""> Liga Francia</a>
+        <a href=""> <img src="/images/esp.svg" width="16px" alt=""> Liga Italia</a>
+        <a href="/liga-argentina"> <img src="/images/arg.svg" width="16px" alt=""> Liga Inglaterra</a>
+        <a href=""> <img src="/images/esp.svg" width="16px" alt=""> Liga Alemania</a> --}}
+        <a href=""> <img src="/images/copa-champions.png" width="20px" alt=""> Champions League</a>
+        <a href=""> <img src="/images/newsicon.png" width="20px" alt=""> Ultimas Noticias</a>
+
+      
+
+      </div>
+      <div class="main">
+   {{{body}}}
+    </div>
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="../js/main.js"> </script>
+<script src="/js/script.js"></script>
+</body>
+
+</html>
