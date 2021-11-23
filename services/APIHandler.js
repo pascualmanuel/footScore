@@ -14,6 +14,7 @@ class APIHandler {
   
   
     getData = (id, season) => this.axiosApp.get('/leagues?country=Argentina')
+
 }
 
 module.exports = APIHandler
