@@ -7,7 +7,7 @@ const User = require("../models/User.model")
 router.get('/registro', (req, res) => res.render('auth/signup'))
 router.post('/registro', (req, res) => {
 
-  const { username, email, name, userPwd, img, league, team, journalist } = req.body
+  const { username, email, name, userPwd, img, country, league, team, journalist } = req.body
 
   if (userPwd.length === 0 || username.length === 0) {      
     res.render('auth/signup', { errorMsg: 'Rellena todos los campos' })
@@ -28,7 +28,7 @@ router.post('/registro', (req, res) => {
       const hashPass = bcrypt.hashSync(userPwd, salt)    
 
       User
-        .create({ username, email, name, password: hashPass, img, league, team, journalist })         
+        .create({ username, email, name, password: hashPass, img, country, league, team, journalist })         
         .then(() => res.redirect('/'))
         .catch(err => console.log(err))
     })
@@ -47,7 +47,7 @@ router.post('/registro', (req, res) => {
       const hashPass = bcrypt.hashSync(userPwd, salt)    
 
       User
-        .create({ username, email, name, password: hashPass, img, league, team, journalist})         
+        .create({ username, email, name, password: hashPass, img, country, league, team, journalist})         
         .then(() => res.redirect('/'))
         .catch(err => console.log(err))
     })

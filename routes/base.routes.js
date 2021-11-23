@@ -1,24 +1,51 @@
 const router = require("express").Router()
 const APIHandler = require('../services/APIHandler.js')
-const apiHandler = new APIHandler()
+const API = new APIHandler()
 
 
 router.get("/", (req, res, next) => {
   res.render("index")
 })
 
-router.get("/argentina", (req, res, next) => {
+router.get("/league/:country", (req, res, next) => {
   
-  apiHandler.getData()
-  .then(response => {
-    console.log(response)
-    res.render("leagues")
-  })
+  const {country} = req.params
+
+  const leagueMapper = {
+    'spain': 140,
+    'argentina': 128,
+    'england': 39,
+    'italy': 135,
+    'france': 61,
+    'germany': 78
+
+  }
+
+  let leagueId = leagueMapper[country]
+  const year = 2021
+  const matchesNumber = 20
+
+  const positionsResponse = API.getPositions(leagueId, year)
+  const matchesResponse = API.getNextMatches(leagueId, year, matchesNumber)
+
+  Promise.all([positionsResponse, matchesResponse])
+    .then(data => {
+
+      const [positionsResponse, matchesResponse] = data
+      const standings = positionsResponse.data.response[0].league.standings[0] // TODO: queremos uno o todos los que haya?? el 'ultimo [0]
+      const matches = matchesResponse.data.response
+      
+      res.render("leagues", {standings, matches})
+      
+    })
+
+  // API.getPositions(leagueId, year)
+  // .then(response => {
+    
+  //   res.render("leagues", {standings})
+  // })
   .catch(err => console.log(err))
 })
 
-router.get("/spain", (req, res, next) => {
-  res.render("leagues")
-})
 
 module.exports = router

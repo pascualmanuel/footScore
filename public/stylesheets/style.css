@@ -51,6 +51,13 @@ h1, h2, h3 {
   margin-left: 200px; /* Same as the width of the sidenav */
 
 }
+/* 
+.match-container{
+  display: flex;
+  display: ;
+} */
+
+
 
 @keyframes  showFromBottom {
   0% {
