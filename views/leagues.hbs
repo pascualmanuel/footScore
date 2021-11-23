@@ -13,7 +13,7 @@
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">    
             <div class="container">
                 <br> <br>
-                <h2>Hola es la liga -- </h2>
+                <h2>{{standings.[0].group}}</h2>
                 <br>
                 <table class="table table-bordered">
                     <thead>
@@ -29,39 +29,22 @@
                       </tr>
                     </thead>
                     <tbody>
+
+                      {{#each standings}}
                       <tr class="">
                       {{!-- <tr class="table-success"> --}}
-                        <th scope="row"></th>
-                        <td> </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+
+                        <td>{{rank}}</td>
+                        <td> <img src="{{team.logo}}" width="25px"> {{team.name}}</td>
+                        <td>{{points}}</td>
+                        <td>{{all.win}}</td>
+                        <td>{{all.draw}}</td>
+                        <td>{{all.lose}}</td>
+                        <td>{{goalsDiff}}</td>
+                        <td>{{all.played}}</td>
+
                       </tr>
-                      <tr class="">
-                      {{!-- <tr class="table-warning"> --}}
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr class="">
-                      {{!-- <tr class="table-danger"> --}}
-                        <th scope="row"></th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                      {{/each}}
                     </tbody>
                   </table>      
             </div>
@@ -69,14 +52,16 @@
 
 
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <div class="container" style="display: flex;">
-            <div class="card" style="width: 18rem;">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">25/11/2021 - 15:00</li>
-                      <li class="list-group-item"> <img src="./eng.svg" alt="" width="15px" > River Plate</li>
-                      <li class="list-group-item"> <img src="./esp.svg" width="15px" alt=""> Boca Juniors</li>
+          <div class="match-container">
+              {{#each matches}}
+            <div class="card style=" style="width: 18rem;">
+                    <ul class="list-group list-group-flush" >
+                      <li class="list-group-item">{{fixture.date}}</li>
+                      <li class="list-group-item"> <img src="{{teams.home.logo}}" alt="" width="15px" > {{teams.home.name}}</li>
+                      <li class="list-group-item"> <img src="{{teams.away.logo}}" width="15px" alt=""> {{teams.away.name}}</li>
                     </ul>
                 </div>
+                {{/each}}
             </div>
         </div>
 

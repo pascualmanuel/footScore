@@ -25,6 +25,22 @@
       <input type="password" class="form-control" id="-" placeholder="Confirmar contraseña">
     </div>
   </div>
+<div class="form-group">
+    <label for="img">Imagen</label>
+    <input type="text" class="form-control" id="img" name="img" placeholder="Image Url">
+  </div>
+      <div class="form-row">
+        <h2>Selecciona tu equipo favorito</h2>
+        <div class="form-group col-md-12">
+        <label for="country">Pais:</label>
+          <select name="country" class="form-control" id="country">
+            <option>Seleccionar</option>
+          {{!-- {{#each allParks}} --}}
+            <option value="{{_id}}">{{name}}</option>
+          {{!-- {{/each}} --}}
+          </select>
+        </div>
+      </div>
       <div class="form-row">
           <div class="form-group col-md-6">
           <label for="league">Liga:</label>
@@ -44,10 +60,6 @@
           {{!-- {{/each}} --}}
           </select>
         </div>
-  </div>
-<div class="form-group">
-    <label for="img">Imagen</label>
-    <input type="text" class="form-control" id="img" name="img" placeholder="Image Url">
   </div>
 
   {{!-- <div class="form-row">
