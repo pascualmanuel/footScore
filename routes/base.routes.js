@@ -8,8 +8,8 @@ router.get("/", (req, res, next) => {
 })
 
 router.get("/league/:country", (req, res, next) => {
-  
-  const {country} = req.params
+
+  const { country} = req.params
 
   const leagueMapper = {
     'spain': 140,
@@ -18,7 +18,6 @@ router.get("/league/:country", (req, res, next) => {
     'italy': 135,
     'france': 61,
     'germany': 78
-
   }
 
   let leagueId = leagueMapper[country]
@@ -28,15 +27,15 @@ router.get("/league/:country", (req, res, next) => {
   const positionsResponse = API.getPositions(leagueId, year)
   const matchesResponse = API.getNextMatches(leagueId, year, matchesNumber)
 
+
   Promise.all([positionsResponse, matchesResponse])
     .then(data => {
-
       const [positionsResponse, matchesResponse] = data
       const standings = positionsResponse.data.response[0].league.standings[0] // TODO: queremos uno o todos los que haya?? el 'ultimo [0]
       const matches = matchesResponse.data.response
       
       res.render("leagues", {standings, matches})
-      
+
     })
 
   // API.getPositions(leagueId, year)

@@ -12,11 +12,12 @@ class APIHandler {
         })
     }
   
-  
+  // get new matches le damos 3 params, para buscar en la API
     getNextMatches = (leagueId, year, matchesNumber) => this.axiosApp.get(`fixtures?league=${leagueId}&season=${year}&next=${matchesNumber}`)
 
     getPositions = (leagueId, year) => this.axiosApp.get(`standings?league=${leagueId}&season=${year}`)
 
+    getLeagues = (country) => this.axiosApp.get(`leagues?country=${country}`)
 }
 
 module.exports = APIHandler
