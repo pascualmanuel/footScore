@@ -19,8 +19,7 @@ class APIHandler {
 
     getLeagues = (country) => this.axiosApp.get(`leagues?country=${country}&type=league`)
     
-    getLeagues = (country) => this.axiosApp.get(`leagues?country=${country}&type=league`)
-
+    getTeam = (id) => this.axiosApp.get(`teams?league=${id}&season=2021`)
 }
 
 module.exports = APIHandler

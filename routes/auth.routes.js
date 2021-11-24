@@ -10,7 +10,7 @@ router.get('/registro', (req, res) => res.render('auth/signup'))
 router.post('/registro', (req, res) => {
 
   const { name, email, userPwd, img, country, league, team, journalist } = req.body
-  console.log(req.body)
+
   if (userPwd.length === 0 || email.length === 0) {      
     res.render('auth/signup', { errorMsg: 'Rellena todos los campos' })
     return
@@ -55,7 +55,7 @@ router.get("/registro/ligas", (req, res, next) => {
           id: league.league.id
         }
       })
-      console.log(leagues)
+
       res.render("auth/signup-leagues", {leagues})
 
     })
@@ -74,9 +74,11 @@ router.post("/registro/ligas", (req, res, next) => {
 
   User
   .findByIdAndUpdate(id, { league }, {new: true})
-  .then(() => { 
-      res.redirect('/registro/equipo')})
-      .catch(err => console.error(err));
+  .then(updatedUser => { 
+    req.session.currentUser = updatedUser
+    res.redirect('/registro/equipo')
+  })
+  .catch(err => console.error(err));
 
 })
 
@@ -84,25 +86,45 @@ router.get("/registro/equipo", (req, res, next) => {
 
   const currentUser = req.session.currentUser
   const leagueId = currentUser.league
-
-  API
-    .getTeam(team)
+  
+  API 
+    .getTeam(leagueId)
     .then(data => {
-      const team = data.data.response
-      const teamsName = teams.map(league => league.league.name)
-      console.log(teamsName)
-      res.render("auth/signup-teams", {teamsName})
+      const teamsResponse = data.data.response
+
+      const teams = teamsResponse.map(teams => {
+        return {
+          name: teams.team.name,
+          logo: teams.team.logo
+        }
+      })
+      res.render("auth/signup-teams", {teams})
 
     })
     .catch(err => {
       console.error(err);
     });
-  // const currentUser = req.session.currentUser
-  // const country = currentUser.country
-
-  // // traer la api a esta pagina, llamarla para traer todas las ligas de un pais
-  // res.render("index")
 })
+
+router.post("/registro/equipo", (req, res, next) => {
+
+  const currentUser = req.session.currentUser
+  const id = currentUser._id
+  const {team} = req.body
+
+  
+  User
+  .findByIdAndUpdate(id, { team }, {new: true})
+  .then(updatedUser => { 
+    req.session.currentUser = updatedUser
+    res.redirect('/')
+  })
+  .catch(err => console.error(err));
+
+})
+
+
+// })
 
 // Login
 router.get('/iniciar-sesion', (req, res) => res.render('auth/login'))
