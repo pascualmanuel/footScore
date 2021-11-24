@@ -2,36 +2,19 @@ const router = require("express").Router()
 const bcrypt = require('bcrypt')
 const User = require("../models/User.model")
 
+const APIHandler = require('../services/APIHandler.js')
+const API = new APIHandler()
 
 // Signup
 router.get('/registro', (req, res) => res.render('auth/signup'))
 router.post('/registro', (req, res) => {
 
-  const { username, email, name, userPwd, img, country, league, team, journalist } = req.body
+  const { name, email, userPwd, img, country, league, team, journalist } = req.body
 
-  if (userPwd.length === 0 || username.length === 0) {      
+  if (userPwd.length === 0 || email.length === 0) {      
     res.render('auth/signup', { errorMsg: 'Rellena todos los campos' })
     return
   }
-  User
-    .findOne({ username })
-    .then(user => {
-
-      if (user) {                  
-        console.log(username + "user")
-        res.render('auth/signup', { errorMsg: "El nombre de usuario " + username + " no está disponible" })
-        return
-      }
-
-      const bcryptSalt = 10
-      const salt = bcrypt.genSaltSync(bcryptSalt)
-      const hashPass = bcrypt.hashSync(userPwd, salt)    
-
-      User
-        .create({ username, email, name, password: hashPass, img, country, league, team, journalist })         
-        .then(() => res.redirect('/'))
-        .catch(err => console.log(err))
-    })
     
     User
     .findOne({ email })
@@ -47,8 +30,10 @@ router.post('/registro', (req, res) => {
       const hashPass = bcrypt.hashSync(userPwd, salt)    
 
       User
-        .create({ username, email, name, password: hashPass, img, country, league, team, journalist})         
-        .then(() => res.redirect('/'))
+        .create({ email, name, password: hashPass, img, country, league, team, journalist})         
+        .then(user => {
+          req.session.currentUser = user
+          res.redirect('/registro/liga')})
         .catch(err => console.log(err))
     })
     .catch(err => console.log(err))
@@ -56,20 +41,52 @@ router.post('/registro', (req, res) => {
 })
 
 
+router.get("/registro/liga", (req, res, next) => {
+  const currentUser = req.session.currentUser
+  const country = currentUser.country
+
+  const leagueResponse = API.getLeagues(country)
+
+  .then(data => {
+    console.log(data);
+    // const leagues = leagueResponse.data
+    //  console.log(leagues);
+
+
+  })
+  .catch(err => {
+    console.error(err);
+  });
+
+
+  // const leagues = leagueResponse
+  // console.log(leagues)
+  // traer la api a esta pagina, llamarla para traer todas las ligas de un pais
+  res.render("index")
+})
+
+router.get("/registro/equipo", (req, res, next) => {
+
+  // const currentUser = req.session.currentUser
+  // const country = currentUser.country
+
+  // // traer la api a esta pagina, llamarla para traer todas las ligas de un pais
+  // res.render("index")
+})
 
 // Login
 router.get('/iniciar-sesion', (req, res) => res.render('auth/login'))
 router.post('/iniciar-sesion', (req, res) => {
 
-  const { username, userPwd } = req.body
+  const { email, userPwd } = req.body
 
-  if (userPwd.length === 0 || username.length === 0) {     
+  if (userPwd.length === 0 || email.length === 0) {     
     res.render('auth/login', { errorMsg: 'Rellena los campos' })
     return
   }
 
   User
-    .findOne({ username })
+    .findOne({ email })
     .then(user => {
 
       if (!user) {
