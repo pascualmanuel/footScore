@@ -9,7 +9,7 @@ router.post('/registro', (req, res) => {
 
   const { username, email, name, userPwd, img, country, league, team, journalist } = req.body
 
-  if (userPwd.length === 0 || username.length === 0) {      
+  if (userPwd.length === 0 || name.length === 0) {
     res.render('auth/signup', { errorMsg: 'Rellena todos los campos' })
     return
   }
@@ -17,7 +17,7 @@ router.post('/registro', (req, res) => {
     .findOne({ username })
     .then(user => {
 
-      if (user) {                  
+      if (user) {
         console.log(username + "user")
         res.render('auth/signup', { errorMsg: "El nombre de usuario " + username + " no está disponible" })
         return
@@ -25,29 +25,29 @@ router.post('/registro', (req, res) => {
 
       const bcryptSalt = 10
       const salt = bcrypt.genSaltSync(bcryptSalt)
-      const hashPass = bcrypt.hashSync(userPwd, salt)    
+      const hashPass = bcrypt.hashSync(userPwd, salt)
 
       User
-        .create({ username, email, name, password: hashPass, img, country, league, team, journalist })         
+        .create({ username, email, name, password: hashPass, img, country, league, team, journalist })
         .then(() => res.redirect('/'))
         .catch(err => console.log(err))
     })
-    
-    User
+
+  User
     .findOne({ email })
     .then(user => {
 
-      if (user) {                  
+      if (user) {
         res.render('auth/signup', { errorMsg: 'Email ya registrado' })
         return
       }
 
       const bcryptSalt = 10
       const salt = bcrypt.genSaltSync(bcryptSalt)
-      const hashPass = bcrypt.hashSync(userPwd, salt)    
+      const hashPass = bcrypt.hashSync(userPwd, salt)
 
       User
-        .create({ username, email, name, password: hashPass, img, country, league, team, journalist})         
+        .create({ username, email, name, password: hashPass, img, country, league, team, journalist })
         .then(() => res.redirect('/'))
         .catch(err => console.log(err))
     })
@@ -63,7 +63,7 @@ router.post('/iniciar-sesion', (req, res) => {
 
   const { username, userPwd } = req.body
 
-  if (userPwd.length === 0 || username.length === 0) {     
+  if (userPwd.length === 0 || username.length === 0) {
     res.render('auth/login', { errorMsg: 'Rellena los campos' })
     return
   }
