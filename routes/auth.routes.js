@@ -10,7 +10,7 @@ router.get('/registro', (req, res) => res.render('auth/signup'))
 router.post('/registro', (req, res) => {
 
   const { name, email, userPwd, img, country, league, team, journalist } = req.body
-
+  console.log(req.body)
   if (userPwd.length === 0 || email.length === 0) {      
     res.render('auth/signup', { errorMsg: 'Rellena todos los campos' })
     return
@@ -33,7 +33,7 @@ router.post('/registro', (req, res) => {
         .create({ email, name, password: hashPass, img, country, league, team, journalist})         
         .then(user => {
           req.session.currentUser = user
-          res.redirect('/registro/liga')})
+          res.redirect('/registro/ligas')})
         .catch(err => console.log(err))
     })
     .catch(err => console.log(err))
@@ -41,32 +41,62 @@ router.post('/registro', (req, res) => {
 })
 
 
-router.get("/registro/liga", (req, res, next) => {
+router.get("/registro/ligas", (req, res, next) => {
   const currentUser = req.session.currentUser
   const country = currentUser.country
 
-  const leagueResponse = API.getLeagues(country)
+  API
+    .getLeagues(country)
+    .then(data => {
+      const leaguesResponse = data.data.response
+      const leagues = leaguesResponse.map(league => {
+        return {
+          name: league.league.name,
+          id: league.league.id
+        }
+      })
+      console.log(leagues)
+      res.render("auth/signup-leagues", {leagues})
 
-  .then(data => {
-    console.log(data);
-    // const leagues = leagueResponse.data
-    //  console.log(leagues);
+    })
+    .catch(err => {
+      console.error(err);
+    });
 
+})
 
-  })
-  .catch(err => {
-    console.error(err);
-  });
+//Update add league on user
+router.post("/registro/ligas", (req, res, next) => {
 
+  const currentUser = req.session.currentUser
+  const id = currentUser._id
+  const {league} = req.body
 
-  // const leagues = leagueResponse
-  // console.log(leagues)
-  // traer la api a esta pagina, llamarla para traer todas las ligas de un pais
-  res.render("index")
+  User
+  .findByIdAndUpdate(id, { league }, {new: true})
+  .then(() => { 
+      res.redirect('/registro/equipo')})
+      .catch(err => console.error(err));
+
 })
 
 router.get("/registro/equipo", (req, res, next) => {
 
+  const currentUser = req.session.currentUser
+  const leagueId = currentUser.league
+
+  API
+    .getTeam(team)
+    .then(data => {
+      const team = data.data.response
+      const teamsName = teams.map(league => league.league.name)
+      console.log(teamsName)
+      res.render("auth/signup-teams", {teamsName})
+
+    })
+    .catch(err => {
+      console.error(err);
+    });
   // const currentUser = req.session.currentUser
   // const country = currentUser.country
 

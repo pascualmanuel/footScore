@@ -15,7 +15,7 @@ const userSchema = new Schema(
     password:{
       type: String,
       required: true,
-      minlength: 6,
+      minlength: 1
   },
     country:{
       type: String,
@@ -25,18 +25,16 @@ const userSchema = new Schema(
     league:{
       type: String,
     // required: true,
-    // enum: ['STANDARD', 'PRO', 'JOURNALIST', 'PM'],
   },
     team:{
       type: String,
     // required: true,
-    // enum: ['STANDARD', 'PRO', 'JOURNALIST', 'PM'],
   },
     img: String,
       role: {
       type: String,
-      enum: ['STANDARD', 'PRO', '-', 'PM'],
-      default: 'STANDARD',
+      // enum: ['STANDARD', 'PRO', '-', 'PM'],
+      // default: 'STANDARD',
     },
     journalist:{
       type: Boolean,

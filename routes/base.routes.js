@@ -33,6 +33,7 @@ router.get("/league/:country", (req, res, next) => {
       const [positionsResponse, matchesResponse] = data
       const standings = positionsResponse.data.response[0].league.standings[0] // TODO: queremos uno o todos los que haya?? el 'ultimo [0]
       const matches = matchesResponse.data.response
+      console.log(positionsResponse.data.response[0].league.standings[0])
       
       res.render("leagues", {standings, matches})
 
