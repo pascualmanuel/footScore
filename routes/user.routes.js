@@ -38,22 +38,32 @@ router.get('/team', (req, res, next) => {
   const positionsResponse = API.getPositions(leagueId, year)
   const matchesResponse = API.getNextMatches(leagueId, year, matchesNumber)
   const allScorersResponse = API.getTopScorers(leagueId)
+  const playersTeamResponse = API.getTeamPlayers(teamId)
+  const teamCoachResponse = API.getTeamCoach(teamId)
+  const lastTeamMatchesResponse = API.getLastMatches(leagueId, teamId)
+  const teamInfoResponse = API.getTeamInfo(teamId)
 
-  Promise.all([positionsResponse, matchesResponse, userTeamResponse, allScorersResponse])
 
-    .then(data => {
-      const [positionsResponse, matchesResponse, userTeamResponse, allScorersResponse] = data
-      const standings = positionsResponse.data.response[0].league.standings[0] // TODO: queremos uno o todos los que haya?? el 'ultimo [0]
-      const matches = matchesResponse.data.response
-      const userTeam = userTeamResponse.data.response[0].team
-      const allScorers = allScorersResponse.data.response
-      const topScorers = allScorers.slice(0, 5)
-      console.log(allScorers)
+  Promise.all([positionsResponse, matchesResponse, userTeamResponse, allScorersResponse, playersTeamResponse, teamCoachResponse, lastTeamMatchesResponse, teamInfoResponse ])
 
-      res.render("users/my-team", { standings, matches, userTeam, topScorers })
+.then(data => {
+  const [positionsResponse, matchesResponse, userTeamResponse, allScorersResponse, playersTeamResponse, teamCoachResponse, lastTeamMatchesResponse, teamInfoResponse] = data
+  const standings = positionsResponse.data.response[0].league.standings[0] // TODO: queremos uno o todos los que haya?? el 'ultimo [0]
+  const matches = matchesResponse.data.response
+  const userTeam = userTeamResponse.data.response[0].team
+  const allScorers = allScorersResponse.data.response
+  const topScorers = allScorers.slice(0, 5)
+  const teamPlayers = playersTeamResponse.data.response[0].players
+  const teamCoach = teamCoachResponse.data.response[0]
+  const lastMatches = lastTeamMatchesResponse.data.response
+console.log(lastMatches)
+  // const lastMatchesDate = lastMatches.slice(0, -9);
+  const teamInfo = userTeamResponse.data.response[0]
 
-    })
-
+  console.log(teamInfo)
+  res.render("users/my-team", {standings, matches, userTeam, topScorers, teamPlayers, teamCoach, lastMatches, teamInfo  })
+})
+  
 })
 
 

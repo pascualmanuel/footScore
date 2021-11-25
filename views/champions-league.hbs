@@ -1,0 +1,34 @@
+<h2> {{championsLeagueName}}</h2>
+    {{#each championsLeagueStanding}}
+
+<table class="table table-bordered">
+
+    <thead>
+        <tr>
+        <th scope="col">Team</th>
+        <th scope="col">PTS</th>
+        <th scope="col">W</th>
+        <th scope="col">D</th>
+        <th scope="col">L</th>
+        <th scope="col">GD</th>
+        <th scope="col">PL</th>
+        </tr>
+    </thead>
+
+    <tbody>
+            {{#each this}}
+        <tr>
+            <td>{{team.name}} <img style="width:25px;" src="{{team.logo}}"> </td>
+            <td>{{points}}</td>
+            <td>{{all.win}}</td>
+            <td>{{all.draw}}</td>
+            <td>{{all.lose}}</td>
+            <td>{{goalsDiff}}</td>
+            <td>{{all.played}}</td>
+        </tr>
+            {{/each}}
+    </tbody>
+
+</table>
+
+    {{/each}}
