@@ -88,14 +88,14 @@ router.get("/registro/equipo", (req, res, next) => {
   const leagueId = currentUser.league
   
   API 
-    .getTeam(leagueId)
+    .getTeams(leagueId)
     .then(data => {
       const teamsResponse = data.data.response
 
       const teams = teamsResponse.map(teams => {
         return {
           name: teams.team.name,
-          logo: teams.team.logo
+          id: teams.team.id
         }
       })
       res.render("auth/signup-teams", {teams})
@@ -122,9 +122,6 @@ router.post("/registro/equipo", (req, res, next) => {
   .catch(err => console.error(err));
 
 })
-
-
-// })
 
 // Login
 router.get('/iniciar-sesion', (req, res) => res.render('auth/login'))
