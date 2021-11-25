@@ -1,4 +1,5 @@
 const router = require("express").Router()
+const { isLoggedIn, checkRoles } = require("../middlewares")
 const APIHandler = require('../services/APIHandler.js')
 const API = new APIHandler()
 
@@ -34,8 +35,10 @@ router.get("/league/:country", (req, res, next) => {
       const standings = positionsResponse.data.response[0].league.standings[0] // TODO: queremos uno o todos los que haya?? el 'ultimo [0]
       const matches = matchesResponse.data.response
       
-      res.render("leagues", {standings, matches})
-
+      
+      res.render("leagues", {standings, matches, isLoggedIn: !!req.session.currentUser })
+      //!! Conversion a Boolean
+      
     })
 
   // API.getPositions(leagueId, year)
@@ -46,7 +49,7 @@ router.get("/league/:country", (req, res, next) => {
   .catch(err => console.log(err))
 })
 
-router.get("/champions-league", (req, res, next) => {
+router.get("/champions-league", isLoggedIn, (req, res, next) => {
 
   const champions = API.getChampionsLeague()
   
@@ -54,11 +57,7 @@ router.get("/champions-league", (req, res, next) => {
 
     const championsLeagueName = response.data.response[0].league.name
     const championsLeagueStanding = response.data.response[0].league.standings
-    console.log(response.data.response[0].league.standings[0])
-
-
-
-
+    // console.log(response.data.response[0].league.standings[0])
     res.render("champions-league", {championsLeagueName, championsLeagueStanding })
 
   })

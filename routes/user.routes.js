@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const { populate } = require("../models/User.model")
-//const Schema = mongoose.Schema;
+const { isLoggedIn, checkRoles } = require("../middlewares")
 const User = require('../models/User.model')
 const Article = require('../models/Article.model')
 const APIHandler = require('../services/APIHandler.js')
@@ -8,22 +8,33 @@ const API = new APIHandler()
 const multer = require('multer');
 const fileUploader = require('../config/cloudinary.config');
 
+
 router.get("/", (req, res, next) => {
   res.render("index")
 })
 
 //visualizar perfil del usuario
-router.get('/profile', (req, res, next) => {
+router.get('/profile', isLoggedIn, (req, res, next) => {
   const currentUser = req.session.currentUser
-  res.render('users/profile', currentUser)
+  const teamId = currentUser.team
+  const userTeamResponse = API.getUserTeam(teamId)
+  .then(response => {
+    const userTeamResponse = response.data.response[0].team
+    res.render('users/profile', {currentUser, userTeamResponse})
+
+  })
+  .catch(err => {
+    console.error(err);
+  });
+
 })
+
 
 router.post('/profile', (req, res, next) => {
 
-  const { name, img, country, league, team } = res.body
+  const { name, img, country, league, team } = res.body 
 
   res.render('/users/profile')
-
 })
 
 
@@ -56,11 +67,11 @@ router.get('/team', (req, res, next) => {
   const teamPlayers = playersTeamResponse.data.response[0].players
   const teamCoach = teamCoachResponse.data.response[0]
   const lastMatches = lastTeamMatchesResponse.data.response
-console.log(lastMatches)
+
   // const lastMatchesDate = lastMatches.slice(0, -9);
   const teamInfo = userTeamResponse.data.response[0]
 
-  console.log(teamInfo)
+
   res.render("users/my-team", {standings, matches, userTeam, topScorers, teamPlayers, teamCoach, lastMatches, teamInfo  })
 })
   
@@ -73,6 +84,7 @@ router.get('/edit-profile', (req, res, next) => {
 
   const currentUser = req.session.currentUser
   res.render('users/edit-profile', currentUser)
+  
 })
 
 router.post('/edit-profile', fileUploader.single("img"), (req, res, next) => {
