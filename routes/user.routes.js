@@ -80,7 +80,7 @@ router.post('/edit-profile', fileUploader.single("img"), (req, res, next) => {
   const { name, email, journalist } = req.body
   const currentUserId = req.session.currentUser._id
 
-  User.findByIdAndUpdate(currentUserId, { name, email, img: req.file.path, journalist }, { new: true })
+  User.findByIdAndUpdate(currentUserId, { name, email, img: req.file.path }, { new: true })
     .then(updatedUser => {
       req.session.currentUser = updatedUser
       res.redirect('/users/profile')

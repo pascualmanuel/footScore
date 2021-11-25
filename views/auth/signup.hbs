@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h2>User Sign up</h2>
+      <h2>User sign up</h2>
       <br>
-      <form action="/registro" method="POST">
+      <form action="/registro" method="POST" enctype="multipart/form-data">
         <div class="form-row">
 
           <div class="form-group col-md-6">
-            <label for="name">User name</label>
+            <label for="name">Your name</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Name">
           </div>
 
@@ -43,6 +43,10 @@
               <option value="{{_id}}">{{name}}</option>
             </select> --}}
           </div>
+          <label>
+            <h2>Load your profile photo</h2>
+            <input type="file" name="img">
+          </label>
         </div>
 
 
