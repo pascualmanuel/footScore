@@ -2,25 +2,24 @@
     <div class="row justify-content-center">
 
         <div class="col-md-6">
-            <h1>Modificación del perfil de usuario</h1>
+            <h1>Edit User Account</h1>
             <br>
-            <form action="/registro" method="POST">
+            <form action="/users/edit-profile" method="POST">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="username">Nuevo nombre de Usuario</label>
-                        <input type="text" class="form-control" id="username" name="username"
-                            placeholder="{{username}}">
+                        <label for="name">New user name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{name}}">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" id="email" name="email" placeholder="{{email}}">
+                        <label for="email">New user Email</label>
+                        <input type="text" class="form-control" id="email" name="email" value="{{email}}">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="img">Imagen</label>
+                    <label for="img">New user image</label>
                     <img src="#" alt="imagen del perfil">
-                    <input type="text" class="form-control" id="img" name="img" placeholder="Image Url">
+                    <input type="text" class="form-control" id="img" name="img">
                 </div>
                 {{!-- <div class="form-row">
                     <h2>Selecciona tu equipo favorito</h2>
@@ -59,11 +58,12 @@
                     <div class="form-check">
                         <label class="form-check-label" for="journalist">
                             <input class="form-check-input" type="checkbox" value="true" name="journalist">
-                            <p>Si eres periodista y quieres ayudar a la Familia FootScore, marca este check</p>
+                            <p>Are you a journalist? Do you want to be part of the FootScore family by writing the news
+                                of your favorite team? Activate the checkbox</p>
                         </label>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-dark btn-block"> Actualizar perfil </button>
+                <button type="submit" class="btn btn-dark btn-block"> Update Account </button>
             </form>
 
         </div>

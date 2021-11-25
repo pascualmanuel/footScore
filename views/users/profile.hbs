@@ -2,37 +2,41 @@
   <div class="row justify-content-center">
 
     <div class="col-md-6">
-      <h1>¡Bienvenido {{username}}! </h1>
+      <h2>Welcome {{name}}! </h2>
       <br>
       <div class="form-row">
         <div class="form-group col-md-6">
           <h3>
-            Nombre: {{username}} </h3>
+            Name: {{name}} </h3>
         </div>
 
         <div class="form-group">
-          <h3>Tu imagen</h3>
+          <h3>Your image: </h3>
           <img src="#" alt="imagen del perfil">
         </div>
         <div class="form-group col-md-12">
           <h3>
-            Pais: {{country}}
+            Country: {{country}}
           </h3>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
-          <h3>Liga: {{league}}</h3>
+          <h3>League: {{league}}</h3>
         </div>
         <div class="form-group col-md-6">
-          <h3>Tu equipo: {{team}}</h3>
+          <h3>Your team: {{team}}</h3>
           <img src="{{team.logo}}" width="100px"" alt=" escudo del equipo">
 
         </div>
         <div>
           <!-- <button type="submit" class="btn btn-dark btn-block"> Editar perfil </button> -->
-          <a href='edit-profile' class="btn btn-dark btn-block">Editar perfil</a>
+          <a href='edit-profile' class="btn btn-dark btn-block">Edit Profile</a>
+        </div>
+        <div>
+          <!-- <button type="submit" class="btn btn-dark btn-block"> Editar perfil </button> -->
+          <a href='write-new' class="btn btn-dark btn-block">Write news</a>
         </div>
       </div>
     </div>

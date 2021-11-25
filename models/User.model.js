@@ -3,40 +3,40 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    name:{ 
+    name: {
       type: String,
       required: true,
     },
-    email: { 
-      type: String, 
+    email: {
+      type: String,
       unique: true,
       required: true,
-  },
-    password:{
+    },
+    password: {
       type: String,
       required: true,
       minlength: 1
-  },
-    country:{
+    },
+    country: {
       type: String,
       // enum: ['']
       // required: true
     },
-    league:{
+    league: {
       type: String,
-    // required: true,
-  },
-    team:{
+      // required: true,
+    },
+    team: {
       type: String,
-    // required: true,
-  },
+      // required: true,
+    },
     img: String,
-      role: {
+    role: {
       type: String,
       // enum: ['STANDARD', 'PRO', '-', 'PM'],
       // default: 'STANDARD',
     },
-    journalist:{
+    journalist: {
       type: Boolean,
       default: false
     }
