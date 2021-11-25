@@ -33,7 +33,6 @@ router.get("/league/:country", (req, res, next) => {
       const [positionsResponse, matchesResponse] = data
       const standings = positionsResponse.data.response[0].league.standings[0] // TODO: queremos uno o todos los que haya?? el 'ultimo [0]
       const matches = matchesResponse.data.response
-      console.log(positionsResponse.data.response[0].league.standings[0])
       
       res.render("leagues", {standings, matches})
 
@@ -47,5 +46,27 @@ router.get("/league/:country", (req, res, next) => {
   .catch(err => console.log(err))
 })
 
+router.get("/champions-league", (req, res, next) => {
 
-module.exports = router
+  const champions = API.getChampionsLeague()
+  
+  .then(response => {
+
+    const championsLeagueName = response.data.response[0].league.name
+    const championsLeagueStanding = response.data.response[0].league.standings
+    console.log(response.data.response[0].league.standings[0])
+
+
+
+
+    res.render("champions-league", {championsLeagueName, championsLeagueStanding })
+
+  })
+  .catch(err => {
+    console.error(err);
+  });
+
+})
+
+
+    module.exports = router

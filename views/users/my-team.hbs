@@ -41,7 +41,27 @@
                     </tbody>
                   </table>      
             </div>
-
+      {{#if topScorers}}
+       <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">Goals</th>
+              <th scope="col">Name</th>
+              <th scope="col">Team</th>
+            </tr>
+            </thead>
+            <tbody>
+         
+     {{#each topScorers}}
+            <tr>
+              <th scope="row">{{statistics.[0].goals.total}}</th>
+              <td>{{player.name}} <img style="height: 20px" src="{{player.photo}}"> </td>
+              <td>{{statistics.[0].team.name}}</td>
+            </tr>
+              {{/each}}
+            </tbody>
+            </table>
+              {{/if}}
 
               {{#each matches}}
             <div class="card style=" style="width: 18rem;">
@@ -52,6 +72,55 @@
                     </ul>
                 </div>
                 {{/each}}
+
+
+            <div class="card" style="width: 12rem;">
+              <img class="card-img-top" src="{{teamCoach.photo}}" alt="aaa">
+              <div class="card-body">
+                <p class="card-text"> Name: {{teamCoach.name}} </p>
+                <p class="card-text"> Nationality: {{teamCoach.nationality}} </p> 
+                <p class="card-text">Age: {{teamCoach.age}}</p>
+              </div>
             </div>
+
+
+              {{#each teamPlayers}}
+            <div class="card" style="width: 12rem;">
+              <img class="card-img-top" src="{{photo}}" alt="aaa">
+              <div class="card-body">
+                <p class="card-text"> Name: {{name}} </p>
+                <p class="card-text"> Position: {{position}} </p> 
+                <p class="card-text">Age: {{age}}</p>
+              </div>
+            </div>
+          {{/each}}
+
+              {{#each lastMatches}}
+          <div class="card style=" style="width: 18rem;">
+            <ul class="list-group list-group-flush" >
+            <li class="list-group-item">{{fixture.date}}</li>
+            <li class="list-group-item"> <img src="{{teams.home.logo}}" alt="" width="15px" > {{teams.home.name}} <b> {{goals.home}} </b> </li>
+            <li class="list-group-item"> <img src="{{teams.away.logo}}" width="15px" alt=""> {{teams.away.name}} <b>{{goals.away}}</b></li>
+          </ul>
+      </div>
+      {{/each}}
+
+      <img src="{{teamInfo.team.logo}}">
+      <p> Founded: {{teamInfo.team.founded}} </p>
+      <h4> Stadium: {{teamInfo.venue.name}} </h4>
+      <p> Adress: {{teamInfo.venue.address}} City: {{teamInfo.venue.city}}</p>
+      <p> Capacity: {{teamInfo.venue.capacity}}</p>
+      <p> Surface: {{teamInfo.venue.surface}}</p>
+      <img src="{{teamInfo.venue.image}}">
+
+
+
+
+
+
+        
+
+
+</div>
 
 

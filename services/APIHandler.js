@@ -24,7 +24,21 @@ class APIHandler {
     getUserTeam = (id) => this.axiosApp.get(`teams?id=${id}`)
 
     getTopScorers = (id) => this.axiosApp.get(`players/topscorers?league=${id}&season=2021`)
+    
+    getTeamPlayers = (teamId) => this.axiosApp.get(`players/squads?team=${teamId}`)
+
+    getTeamCoach = (teamId) => this.axiosApp.get(`coachs/squads?team=${teamId}`)
+
+    getLastMatches = (leagueId, teamId) => this.axiosApp.get(`fixtures?league=${leagueId}&team=${teamId}&last=5`)
+
+    getTeamInfo = (id) => this.axiosApp.get(`teams?=${id}`)
+
+    getChampionsLeague = () => this.axiosApp.get(`standings?season=2021&league=2`)
+
+    // getChampionsLeague = (season) => this.axios.get(`standings?season=${season}&league=2`)
+
+    
+
 }
-// players/topscorers?league=39&season=2020"
 
 module.exports = APIHandler
