@@ -4,7 +4,7 @@
         <div class="col-md-6">
             <h1>Edit User Account</h1>
             <br>
-            <form action="/users/edit-profile" method="POST">
+            <form action="/users/edit-profile" method="POST" enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="name">New user name</label>
@@ -16,43 +16,10 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="img">New user image</label>
-                    <img src="#" alt="imagen del perfil">
-                    <input type="text" class="form-control" id="img" name="img">
-                </div>
-                {{!-- <div class="form-row">
-                    <h2>Selecciona tu equipo favorito</h2>
-                    <div class="form-group col-md-12">
-                        <label for="country">Pais:</label>
-                        <select name="country" class="form-control" id="country">
-                            <option>Seleccionar</option>
-                            {{#each allParks}}
-                            <option value="{{_id}}">{{name}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                </div> --}}
-                {{!-- <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="league">Liga:</label>
-                        <select name="league" class="form-control" id="league">
-                            <option>Seleccionar</option>
-                            {{#each allParks}}
-                            <option value="{{_id}}">{{name}}</option>
-                            {{/each}}
-                        </select>
-                    </div> --}}
-                    {{!-- <div class="form-group col-md-6">
-                        <label for="team">Equipo:</label>
-                        <select name="team" class="form-control" id="team">
-                            <option>Seleccionar</option>
-                            {{#each allParks}}
-                            <option value="{{_id}}">{{name}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                </div> --}}
+                <label>
+                    <h2>Upload your profile photo</h2>
+                    <input type="file" name="img">
+                </label>
 
                 <div class="form-group">
                     <div class="form-check">

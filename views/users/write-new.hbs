@@ -5,30 +5,36 @@
 
         <div class="col-md-4">
 
-            <h2>Welcome journalist {{name}}</h2>
+            <h2>Welcome journalist {{author}}</h2>
             <br>
 
-
-            <form action="/publicar-noticia" method="POST">
+            <form action="/article/write-new" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="text">Headline</label>
+                    <label for="headline">
+                        <h3>Headline</h3>
+                    </label>
                     <input type="text" class="form-control" id="headline" name="headline"
                         placeholder="Write your headline here">
                 </div>
                 <div class="form-group">
-                    <label for="textArea">Breaking New</label>
-                    <textarea name="textarea" rows="10" cols="44"
-                        placeholder="Tell to FootScore Community something awesome about yout favourite team!"></textarea>
+                    <label for="comment">
+                        <h3>Breaking New</h3>
+                    </label>
+                    <textarea name="comment" rows="10" cols="44"
+                        placeholder="Tell to FootScore Community something awesome about {{team}}!"></textarea>
                 </div>
 
-
+                <div>
+                    <label>
+                        <h2>Load an image of your news</h2>
+                        <input type="file" name="img">
+                    </label>
+                </div>
+                <hr>
                 <div>
                     <p>
-                        This is a news about {{team}}, written by {{author}} as of {{date}}
+                        This is a news about {{team}}, written by {{name}} as of {{date}}
                     </p>
-                </div>
-                <div>
-                    <img src="/images/prueba.png" alt="imagen de prueba">
                 </div>
                 <hr>
                 <button type="submit" class="btn btn-dark btn-block">Send New</button>
