@@ -55,21 +55,32 @@ router.get('/team', (req, res, next) => {
 
 
 //Editar perfil del usuario
-// router.get('/edit-profile', (req, res, next) => {
+router.get('/edit-profile', (req, res, next) => {
 
-//   const currentUser = req.session.currentUser
-//   res.render('users/edit-profile', currentUser)
-// })
+  const currentUser = req.session.currentUser
+  res.render('users/edit-profile', currentUser)
+})
+
+router.post('/edit-profile', (req, res, next) => {
+
+  const { name, email, img } = req.body
+  const currentUserId = req.session.currentUser._id
+
+  User.findByIdAndUpdate(currentUserId, { name, email, img }, { new: true })
+    .then(updatedUser => {
+      req.session.currentUser = updatedUser
+      res.redirect('/users/profile')
+    })
+    .catch(err => console.log(err))
+
+})
 
 
-// router.post('/edit-profile', (req, res, next) => {
-//   console.log('ENTRO TRAS ROUTER.POST y /EDIT-PROFILE');
-//   const { username, email, img } = res.body
-//   const currentUser = req.session.currentUser
+//CREAR UNA NOTICIA
+//Ir a la página de crear noticia:
+router.get("/write-new", (req, res, next) => {
+  //Verificar que se ha marcado como un periodista
+  res.render("users/write-new")
+})
 
-//   User.findOneAndUpdate(currentUser, { username, email, img })
-//     .then(() => res.redirect('/users/profile'))
-//     .catch(err => console.log(err))
-
-// })
 module.exports = router
