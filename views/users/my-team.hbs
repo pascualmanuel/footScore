@@ -1,12 +1,27 @@
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Standing</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Next Matches</a>
+    <a class="nav-item nav-link" id="nav-lastmatches-tab" data-toggle="tab" href="#nav-lastmatches" role="tab" aria-controls="nav-lastmatches" aria-selected="false">Last Matches</a>
+    <a class="nav-item nav-link" id="nav-goleadores-tab" data-toggle="tab" href="#nav-goleadores" role="tab" aria-controls="nav-goleadores" aria-selected="false">Players</a>
+    <a class="nav-item nav-link" id="nav-teaminfo-tab" data-toggle="tab" href="#nav-teaminfo" role="tab" aria-controls="nav-teaminfo" aria-selected="false">Team Info</a>
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Top league Scorers</a>
 
-{{userTeam.name}}
-<img src="{{userTeam.logo}}" style="height: 50px;">
+  </div>
+</nav>
 
-<div class="container">
+
+<div class="tab-content" id="nav-tabContent">
+
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="container">
+      <br><br>
+      <h2 style="text-align: center;" >{{userTeam.name}} <img src="{{userTeam.logo}}" style="height: 50px;"></h2>
+  
                 <br> <br>
+
                 <h2>{{matches.[1].league.name}} <img src="{{matches.[1].league.logo}}" width="50px" alt=""> </h2>
-                 
-                {{!-- <img src="{{standings.[0].logo}}" alt=""> --}}
                 <br>
                 <table class="table table-bordered">
                     <thead>
@@ -25,8 +40,6 @@
 
                       {{#each standings}}
                       <tr class="">
-                      {{!-- <tr class="table-success"> --}}
-
                         <td>{{rank}}</td>
                         <td> <img src="{{team.logo}}" width="25px"> {{team.name}}</td>
                         <td>{{points}}</td>
@@ -35,13 +48,35 @@
                         <td>{{all.lose}}</td>
                         <td>{{goalsDiff}}</td>
                         <td>{{all.played}}</td>
-
                       </tr>
                       {{/each}}
                     </tbody>
-                  </table>      
+                </table>
+              </div>
             </div>
-      {{#if topScorers}}
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <br>
+        <h2 style="text-align: center;">Next {{userTeam.name}} Matches</h2>
+      <br>
+    <div class="match-container">
+                {{#each teamMatches}}
+            <div class="card style=" style="width: 18rem; margin-top:20px; margin-bottom:20px">
+                <ul class="list-group list-group-flush" >
+                  <li class="list-group-item">{{fixture.date}}</li>
+                  <li class="list-group-item">{{league.round}}</li>
+                  <li class="list-group-item"> <img src="{{teams.home.logo}}" alt="" width="15px" > {{teams.home.name}}</li>
+                  <li class="list-group-item"> <img src="{{teams.away.logo}}" width="15px" alt=""> {{teams.away.name}}</li>
+              </ul>
+              </div>
+            {{/each}}
+          </div>
+    </div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+          <br>
+        <h2 style="text-align: center;">Top {{matches.[1].league.name}} Scorers</h2>
+      <br>
+          {{#if topScorers}}
        <table class="table">
             <thead>
             <tr>
@@ -63,27 +98,20 @@
             </table>
               {{/if}}
 
-              {{#each matches}}
-            <div class="card style=" style="width: 18rem;">
-                    <ul class="list-group list-group-flush" >
-                      <li class="list-group-item">{{fixture.date}}</li>
-                      <li class="list-group-item"> <img src="{{teams.home.logo}}" alt="" width="15px" > {{teams.home.name}}</li>
-                      <li class="list-group-item"> <img src="{{teams.away.logo}}" width="15px" alt=""> {{teams.away.name}}</li>
-                    </ul>
-                </div>
-                {{/each}}
-
-
-            <div class="card" style="width: 12rem;">
-              <img class="card-img-top" src="{{teamCoach.photo}}" alt="aaa">
+  </div>
+  <div class="tab-pane fade" id="nav-goleadores" role="tabpanel" aria-labelledby="nav-goleadores-tab">
+      <br>
+        <h2 style="text-align: center;">{{userTeam.name}} Players 2021-2022</h2>
+      <br>
+    <div class="card" style="width: 12rem;">
+              <img class="card-img-top" style="align-items: center;" src="{{teamCoach.photo}}" alt="aaa">
               <div class="card-body">
                 <p class="card-text"> Name: {{teamCoach.name}} </p>
                 <p class="card-text"> Nationality: {{teamCoach.nationality}} </p> 
                 <p class="card-text">Age: {{teamCoach.age}}</p>
               </div>
-            </div>
-
-
+      </div>
+          <div class="match-container">
               {{#each teamPlayers}}
             <div class="card" style="width: 12rem;">
               <img class="card-img-top" src="{{photo}}" alt="aaa">
@@ -94,9 +122,16 @@
               </div>
             </div>
           {{/each}}
+          </div>
+  </div>
 
-              {{#each lastMatches}}
-          <div class="card style=" style="width: 18rem;">
+ <div class="tab-pane fade" id="nav-lastmatches" role="tabpanel" aria-labelledby="nav-lastmatches">
+      <br>
+        <h2 style="text-align: center;">Last {{userTeam.name}} Matches</h2>
+      <br>
+          <div class="match-container">
+        {{#each lastMatches}}
+          <div class="card style=" style="width: 18rem; margin-top:20px; margin-bottom:20px">
             <ul class="list-group list-group-flush" >
             <li class="list-group-item">{{fixture.date}}</li>
             <li class="list-group-item"> <img src="{{teams.home.logo}}" alt="" width="15px" > {{teams.home.name}} <b> {{goals.home}} </b> </li>
@@ -104,7 +139,11 @@
           </ul>
       </div>
       {{/each}}
+      </div>
+  </div>
 
+ <div class="tab-pane fade" id="nav-teaminfo" role="tabpanel" aria-labelledby="nav-teaminfo">
+   <div class="container">
       <img src="{{teamInfo.team.logo}}">
       <p> Founded: {{teamInfo.team.founded}} </p>
       <h4> Stadium: {{teamInfo.venue.name}} </h4>
@@ -112,15 +151,8 @@
       <p> Capacity: {{teamInfo.venue.capacity}}</p>
       <p> Surface: {{teamInfo.venue.surface}}</p>
       <img src="{{teamInfo.venue.image}}">
-
-
-
-
-
-
-        
+  </div>
+  </div>
 
 
 </div>
-
-

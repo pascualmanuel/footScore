@@ -34,6 +34,9 @@ class APIHandler {
     getTeamInfo = (id) => this.axiosApp.get(`teams?=${id}`)
 
     getChampionsLeague = () => this.axiosApp.get(`standings?season=2021&league=2`)
+
+    getNextTeamMatches = (teamId) => this.axiosApp.get(`fixtures?team=${teamId}&next=6`)
+
 }
 
 module.exports = APIHandler

@@ -48,16 +48,14 @@ h1, h2, h3 {
 }
 
 .main {
-  margin-left: 200px; /* Same as the width of the sidenav */
-
+  margin-left: 200px; 
 }
-/* 
+
 .match-container{
-  display: flex;
-  display: ;
-} */
-
-
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
 
 @keyframes  showFromBottom {
   0% {

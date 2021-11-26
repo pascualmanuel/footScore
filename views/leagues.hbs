@@ -1,18 +1,16 @@
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
-<<<<<<< HEAD
       aria-controls="nav-home" aria-selected="true">Leaderboard</a>
   {{#if isLoggedIn}}
-    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+    <a class="nav-item nav-link" id="nav-matches-tab" data-toggle="tab" href="#nav-matches" role="tab"
       aria-controls="nav-profile" aria-selected="false">Next game</a>
   {{/if}}
+    {{#if isLoggedIn}}
+    <a class="nav-item nav-link" id="nav-scorer-tab" data-toggle="tab" href="#nav-scorer" role="tab"
+      aria-controls="nav-profile" aria-selected="false">Top Scorers</a>
+  {{/if}}
 
-=======
-      aria-controls="nav-home" aria-selected="true">Tabla de Posiciones</a>
-    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
-      aria-controls="nav-profile" aria-selected="false">Proximos Partidos</a>
->>>>>>> 323ef880a700e4f254b3cb7beff6b04206804bab
     {{!-- <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
       aria-controls="nav-contact" aria-selected="false">Noticias</a> --}}
   </div>
@@ -63,52 +61,57 @@
   </div>
 
   {{#if isLoggedIn}}
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    {{!-- <div class="tab-pane fade" id="nav-matches" role="tabpanel" aria-labelledby="nav-matches-tab"> --}}
+
+  <div class="tab-pane fade" id="nav-matches" role="tabpanel" aria-labelledby="nav-matches-tab">
+    <div class="container" style="text-align:center">
+       <h2>{{matches.[1].league.name}} <img src="{{matches.[1].league.logo}}" width="50px" alt=""> Next 20 Matches</h2>
     <div class="match-container">
       {{#each matches}}
-      <div class="card style=" style="width: 18rem;">
+      <div class="card style=" style="width: 18rem; margin-top: 15px; margin-bottom: 15px">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">{{fixture.date}}</li>
+          <li class="list-group-item">{{league.round}}</li>
           <li class="list-group-item"> <img src="{{teams.home.logo}}" alt="" width="15px"> {{teams.home.name}}</li>
           <li class="list-group-item"> <img src="{{teams.away.logo}}" width="15px" alt=""> {{teams.away.name}}</li>
-        </ul>
+          <li class="list-group-item">{{fixture.venue.name}}</li>
+        
+        </ul> 
       </div>
+
       {{/each}}
     </div>
   </div>
+</div>
   {{/if}}
 
-  {{!-- <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-    <div class="container">
-      <br> <br> <br>
-      <div class="card-deck">
-        <div class="card">
-          <img class="card-img-top" src="../images/prueba.png" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-              content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="../images/prueba.png" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-        <div class="card">
-          <img class="card-img-top" src="../images/prueba.png" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-              content. This card has even longer content than the first to show that equal height action.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-      </div>
+  {{#if isLoggedIn}}
+  <div class="tab-pane fade" id="nav-scorer" role="tabpanel" aria-labelledby="nav-scorer-tab">
+    <div class="container" style="text-align:center">
+       <h2>{{matches.[1].league.name}} <img src="{{matches.[1].league.logo}}" width="50px" alt=""> Top Scorers</h2>
+
+       <table class="table">
+            <thead>
+            <tr>
+              <th scope="col">Goals</th>
+              <th scope="col">Name</th>
+              <th scope="col">Team</th>
+            </tr>
+            </thead>
+            <tbody>
+         
+        {{#each topScorers}}
+            <tr>
+              <th scope="row">{{statistics.[0].goals.total}}</th>
+              <td>{{player.name}} <img style="height: 20px" src="{{player.photo}}"> </td>
+              <td>{{statistics.[0].team.name}}</td>
+            </tr>
+          {{/each}}
+            </tbody>
+            </table>
     </div>
-  </div> --}}
+  </div>
+  {{/if}}
+  </div>
+
 </div>

@@ -38,7 +38,7 @@ router.post('/profile', (req, res, next) => {
 })
 
 
-router.get('/team', (req, res, next) => {
+router.get('/team', isLoggedIn, (req, res, next) => {
   const currentUser = req.session.currentUser
   const leagueId = currentUser.league
   const teamId = currentUser.team
@@ -53,12 +53,14 @@ router.get('/team', (req, res, next) => {
   const teamCoachResponse = API.getTeamCoach(teamId)
   const lastTeamMatchesResponse = API.getLastMatches(leagueId, teamId)
   const teamInfoResponse = API.getTeamInfo(teamId)
+  const nextTeamMatches = API.getNextTeamMatches(teamId)
+  
 
 
-  Promise.all([positionsResponse, matchesResponse, userTeamResponse, allScorersResponse, playersTeamResponse, teamCoachResponse, lastTeamMatchesResponse, teamInfoResponse ])
+  Promise.all([positionsResponse, matchesResponse, userTeamResponse, allScorersResponse, playersTeamResponse, teamCoachResponse, lastTeamMatchesResponse, teamInfoResponse, nextTeamMatches ])
 
 .then(data => {
-  const [positionsResponse, matchesResponse, userTeamResponse, allScorersResponse, playersTeamResponse, teamCoachResponse, lastTeamMatchesResponse, teamInfoResponse] = data
+  const [positionsResponse, matchesResponse, userTeamResponse, allScorersResponse, playersTeamResponse, teamCoachResponse, lastTeamMatchesResponse, teamInfoResponse, nextTeamMatches] = data
   const standings = positionsResponse.data.response[0].league.standings[0] // TODO: queremos uno o todos los que haya?? el 'ultimo [0]
   const matches = matchesResponse.data.response
   const userTeam = userTeamResponse.data.response[0].team
@@ -67,12 +69,11 @@ router.get('/team', (req, res, next) => {
   const teamPlayers = playersTeamResponse.data.response[0].players
   const teamCoach = teamCoachResponse.data.response[0]
   const lastMatches = lastTeamMatchesResponse.data.response
-
-  // const lastMatchesDate = lastMatches.slice(0, -9);
   const teamInfo = userTeamResponse.data.response[0]
+  const teamMatches = nextTeamMatches.data.response
+  console.log(teamMatches[0])
 
-
-  res.render("users/my-team", {standings, matches, userTeam, topScorers, teamPlayers, teamCoach, lastMatches, teamInfo  })
+  res.render("users/my-team", {standings, matches, userTeam, topScorers, teamPlayers, teamCoach, lastMatches, teamInfo, teamMatches })
 })
   
 })
