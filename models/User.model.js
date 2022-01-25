@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
@@ -15,7 +15,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      minlength: 1
+      minlength: 1,
     },
     country: {
       type: String,
@@ -31,22 +31,12 @@ const userSchema = new Schema(
       // required: true,
     },
     img: String,
-    role: {
-      type: String,
-      // enum: ['STANDARD', 'PRO', '-', 'PM'],
-      // default: 'STANDARD',
-    },
-    journalist: {
-      type: Boolean,
-      default: false
-    }
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 
-const User = mongoose.model('User', userSchema);
-
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
